@@ -1,0 +1,230 @@
+{
+  "address": "HDQ8cAj8LyKD4KgveWrokYyBi76XQJgvMD1BoCy9YHc8",
+  "metadata": {
+    "name": "storage_program",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "add_entry",
+      "discriminator": [
+        170,
+        45,
+        66,
+        212,
+        251,
+        230,
+        45,
+        38
+      ],
+      "accounts": [
+        {
+          "name": "storage",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  111,
+                  114,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "cid",
+          "type": "string"
+        },
+        {
+          "name": "encrypted_aes_key",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "get_entries",
+      "discriminator": [
+        87,
+        205,
+        146,
+        55,
+        191,
+        39,
+        159,
+        242
+      ],
+      "accounts": [
+        {
+          "name": "storage",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  111,
+                  114,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [],
+      "returns": {
+        "vec": {
+          "defined": {
+            "name": "FileEntry"
+          }
+        }
+      }
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "storage",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  111,
+                  114,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "StorageAccount",
+      "discriminator": [
+        41,
+        48,
+        231,
+        194,
+        22,
+        77,
+        205,
+        235
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "MaxFilesReached",
+      "msg": "Maximum file limit reached"
+    },
+    {
+      "code": 6001,
+      "name": "Unauthorized",
+      "msg": "Unauthorized access"
+    }
+  ],
+  "types": [
+    {
+      "name": "FileEntry",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "cid",
+            "type": "string"
+          },
+          {
+            "name": "encrypted_aes_key",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StorageAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "files",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "FileEntry"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

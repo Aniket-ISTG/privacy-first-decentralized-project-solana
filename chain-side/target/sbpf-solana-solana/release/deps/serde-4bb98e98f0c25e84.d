@@ -1,0 +1,14 @@
+/mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/deps/libserde-4bb98e98f0c25e84.rmeta: /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs /mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/build/serde-04594d742be3f73e/out/private.rs
+
+/mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/deps/libserde-4bb98e98f0c25e84.rlib: /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs /mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/build/serde-04594d742be3f73e/out/private.rs
+
+/mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/deps/serde-4bb98e98f0c25e84.d: /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs /home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs /mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/build/serde-04594d742be3f73e/out/private.rs
+
+/home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs:
+/home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs:
+/home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs:
+/home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs:
+/home/buddy/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs:
+/mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/build/serde-04594d742be3f73e/out/private.rs:
+
+# env-dep:OUT_DIR=/mnt/c/Users/aniket/privacy-first/chain-side/target/sbpf-solana-solana/release/build/serde-04594d742be3f73e/out
