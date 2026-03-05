@@ -1,3 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Design System Colors */
+:root {
+  /* Backgrounds */
+  --bg-dark: #0a192f;
+  --bg-surface: #112240;
+  --bg-border: #233554;
+  
+  /* Accents */
+  --accent-primary: #64ffda;
+  --accent-secondary: #8892b0;
+  --accent-text: #ccd6f6;
+  --accent-bright: #e6f1ff;
+}
+
+/* Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  --tw-ring-color: rgba(100, 255, 218, 0.2);
+}
+
+::selection {
+  background-color: var(--accent-primary);
+  color: var(--bg-dark);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4dffc4;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-color: var(--accent-primary) var(--bg-dark);
+  scrollbar-width: thin;
+}
+
+/* Font Family */
+body {
+  font-family: "Calibre", "Inter", "San Francisco", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--accent-text);
+  line-height: 1.5;
+}
+
+.font-mono {
+  font-family: "SF Mono", "Fira Code", "Monaco", monospace;
+}
+
+/* Base Components */
+@layer components {
+  .btn-primary {
+    @apply border border-[#64ffda] text-[#64ffda] bg-transparent px-4 py-2 rounded text-sm font-mono font-medium transition-all duration-300;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-[rgba(100,255,218,0.1)] shadow-[0_0_30px_rgba(100,255,218,0.3)];
+  }
+  
+  .btn-primary:active {
+    @apply scale-95;
+  }
+  
+  .btn-secondary {
+    @apply border border-transparent text-[#64ffda] bg-transparent px-4 py-2 rounded text-sm font-mono font-medium transition-all duration-300;
+  }
+  
+  .btn-secondary:hover {
+    @apply border-[#64ffda] text-[#64ffda];
+  }
+  
+  .section-title {
+    @apply text-4xl font-bold text-[#ccd6f6] mb-8 flex items-center gap-4;
+  }
+  
+  .section-number {
+    @apply font-mono text-[#64ffda] font-bold text-lg;
+  }
+  
+  .card {
+    @apply bg-[#112240] border border-[#233554] rounded-lg p-6 transition-all duration-300;
+  }
+  
+  .card:hover {
+    @apply border-[#64ffda] shadow-[0_20px_30px_rgba(2,12,27,0.7)];
+  }
+}
+
+/* Micro-animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(100, 255, 218, 0.5);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fadeInDown {
+  animation: fadeInDown 0.6s ease-out forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Stagger animation delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #64ffda 0%, #00d4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Backdrop blur */
+.backdrop-blur-nav {
+  backdrop-filter: blur(10px);
+  background-color: rgba(10, 25, 47, 0.8);
+}
+
+/* Link styles */
+a {
+  @apply text-[#64ffda] hover:text-[#00d4ff] transition-colors;
+}
+
+/* Subtle grain texture */
+.grain-texture::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    url('data:image/svg+xml?utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100" height="100" filter="url(%23noiseFilter)" opacity="0.02"/></svg>');
+  z-index: -1;
+}
+
+/* Toast styles override */
+.Toastify__toast {
+  background-color: var(--bg-surface) !important;
+  border-left: 4px solid var(--accent-primary) !important;
+  color: var(--accent-text) !important;
+  font-family: "Calibre", "Inter", sans-serif !important;
+}
+
+.Toastify__toast--success {
+  background-color: var(--bg-surface) !important;
+}
+
+.Toastify__toast-icon {
+  color: var(--accent-primary) !important;
+}
+
+/* Input file styling */
+input[type="file"] {
+  display: none;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: var(--accent-primary);
+  color: var(--bg-dark);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #4dffc4;
+}

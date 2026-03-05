@@ -164,6 +164,55 @@ export type StorageProgram = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "removeEntry",
+      "discriminator": [
+        135,
+        175,
+        236,
+        10,
+        213,
+        208,
+        69,
+        214
+      ],
+      "accounts": [
+        {
+          "name": "storage",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  111,
+                  114,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "index",
+          "type": "u64"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -191,6 +240,11 @@ export type StorageProgram = {
       "code": 6001,
       "name": "unauthorized",
       "msg": "Unauthorized access"
+    },
+    {
+      "code": 6002,
+      "name": "invalidIndex",
+      "msg": "Invalid index"
     }
   ],
   "types": [

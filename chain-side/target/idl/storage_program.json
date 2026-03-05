@@ -158,6 +158,55 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "remove_entry",
+      "discriminator": [
+        135,
+        175,
+        236,
+        10,
+        213,
+        208,
+        69,
+        214
+      ],
+      "accounts": [
+        {
+          "name": "storage",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  111,
+                  114,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "index",
+          "type": "u64"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -185,6 +234,11 @@
       "code": 6001,
       "name": "Unauthorized",
       "msg": "Unauthorized access"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidIndex",
+      "msg": "Invalid index"
     }
   ],
   "types": [

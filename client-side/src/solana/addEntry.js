@@ -42,14 +42,14 @@ export async function addEntry(wallet, cid, encryptedAesKey) {
   tx.recentBlockhash = latestBlockhash.blockhash;
 
   // Simulate first
-  const simulation = await connection.simulateTransaction(tx);
-  console.log("Simulation result:", simulation);
+  // const simulation = await connection.simulateTransaction(tx);
+  // console.log("Simulation result:", simulation);
 
-  if (simulation.value.err) {
-    console.error("❌ Simulation error:", simulation.value.err);
-    console.log("🪵 Program logs:", simulation.value.logs);
-    return;
-  }
+  // if (simulation.value.err) {
+  //   console.error("❌ Simulation error:", simulation.value.err);
+  //   console.log("🪵 Program logs:", simulation.value.logs);
+  //   return;
+  // }
 
   const signature = await wallet.sendTransaction(tx, connection);
   await connection.confirmTransaction(signature, "confirmed");

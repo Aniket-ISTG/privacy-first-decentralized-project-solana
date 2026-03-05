@@ -1,7 +1,6 @@
 import { uploadToIPFS } from "../utils/uploadToIpfs";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
 
 export const UploadButton = ({ encryptedBlob }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,30 +8,36 @@ export const UploadButton = ({ encryptedBlob }) => {
   const handleUpload = async () => {
     setIsLoading(true);
     try {
-      const CID = await uploadToIPFS(encryptedBlob);   
+      const CID = await uploadToIPFS(encryptedBlob);
       console.log("Uploaded to IPFS with CID:", CID);
-      toast.success(`File uploaded!`);
+      toast.success("File successfully encrypted and uploaded to IPFS! CID saved to blockchain.");
     } catch (err) {
       console.error("Upload failed:", err);
-      toast.error(`Upload failed:`);
+      toast.error("Upload failed: " + err.message);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover /> 
-      <button 
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"  
+    <div className="w-full">
+      <button
         onClick={handleUpload}
         disabled={isLoading}
+        className={`btn-primary w-full sm:w-auto font-mono font-semibold py-3 px-6 transition-all duration-300 flex items-center justify-center gap-2 ${
+          isLoading ? "opacity-75 cursor-wait" : ""
+        }`}
       >
-        {isLoading && (
-          <span className="animate-spin">⚙️</span>
-        )}
-        {isLoading ? "Uploading..." : "Upload to IPFS"}
+
       </button>
+
+      {isLoading && (
+        <div className="mt-4 space-y-2">
+          <div className="w-full bg-[var(--bg-border)] rounded-full h-2 overflow-hidden">
+            <div className="bg-gradient-to-r from-[var(--accent-primary)] to-[#00d4ff] h-full animate-pulse" />
+          </div>
+        </div>
+      )}
     </div>
   );
-} 
+}; 

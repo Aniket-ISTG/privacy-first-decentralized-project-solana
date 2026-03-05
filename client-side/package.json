@@ -25,11 +25,13 @@
     "core-js": "^3.48.0",
     "dotenv": "^17.3.1",
     "form-data": "^4.0.5",
+    "framer-motion": "^12.35.0",
     "ipfs-http-client": "^60.0.1",
     "jszip": "^3.10.1",
     "process": "^0.11.10",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-router-dom": "^6.28.0",
     "react-toastify": "^11.0.5",
     "rollup-plugin-node-polyfills": "^0.2.1"
   },

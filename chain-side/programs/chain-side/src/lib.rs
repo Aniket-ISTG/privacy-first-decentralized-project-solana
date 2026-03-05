@@ -38,6 +38,24 @@ pub mod storage_program {
         Ok(())
     }
 
+    pub fn remove_entry(ctx: Context<RemoveEntry>, index: u64) -> Result<()> {
+        let account = &mut ctx.accounts.storage;
+
+        require!(
+            account.owner == ctx.accounts.user.key(),
+            StorageError::Unauthorized
+        );
+
+        require!(
+            (index as usize) < account.files.len(),
+            StorageError::InvalidIndex
+        );
+
+        account.files.remove(index as usize);
+
+        Ok(())
+    }
+
     pub fn get_entries(ctx: Context<GetEntries>) -> Result<Vec<FileEntry>> {
         let account = &ctx.accounts.storage;
 
@@ -80,6 +98,18 @@ pub struct AddEntry<'info> {
 }
 
 #[derive(Accounts)]
+pub struct RemoveEntry<'info> {
+    #[account(
+        mut,
+        seeds = [b"storage", user.key().as_ref()],
+        bump
+    )]
+    pub storage: Account<'info, StorageAccount>,
+
+    pub user: Signer<'info>,
+}
+
+#[derive(Accounts)]
 pub struct GetEntries<'info> {
     #[account(
         seeds = [b"storage", user.key().as_ref()],
@@ -108,6 +138,8 @@ pub enum StorageError {
     MaxFilesReached,
     #[msg("Unauthorized access")]
     Unauthorized,
+    #[msg("Invalid index")]
+    InvalidIndex,
 }
 
 impl StorageAccount {
@@ -116,7 +148,6 @@ impl StorageAccount {
     pub const MAX_AES: usize = 256;
 
     pub const MAX_SIZE: usize =
-        32 +  // owner
+        32 +
         4 + (Self::MAX_FILES * (4 + Self::MAX_CID + 4 + Self::MAX_AES));
-        // = 32 + 4 + (20 * 328) = 6596 bytes
 }
