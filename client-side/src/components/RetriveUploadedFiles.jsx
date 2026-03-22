@@ -37,14 +37,15 @@ export default function RetrieveUploadedFiles({ wallet }) {
 
   const handleDownload = async (index) => {
     try {
-      setDownloading(index);
-      setStatus(`Downloading file ${index + 1}...`);
-      const { cid, encryptedAesKey } = files[index];
+      const file = files[index];
+      setDownloading(file.nameField || index);
+      setStatus(`Downloading file ${file.nameField || index}...`);
+      const { cid, encryptedAesKey } = file;
       const encryptedBlob = await getEncryptedDataFromIPFS(cid);
       const aesKey = await decryptAESKeyWithSecret(wallet, encryptedAesKey);
       const decryptedZippedFile = await getDecryptedUnzippedData(encryptedBlob, aesKey);
-      downloadFolderAsZip(decryptedZippedFile, `folder-${index + 1}.zip`);
-      setStatus(`✅ File ${index + 1} downloaded!`);
+      downloadFolderAsZip(decryptedZippedFile, `${file.nameField || index}.zip`);
+      setStatus(`✅ File ${file.nameField || index} downloaded!`);
     } catch (err) {
       console.error(err);
       setStatus("❌ Download failed: " + err.message);
@@ -55,7 +56,8 @@ export default function RetrieveUploadedFiles({ wallet }) {
 
   const handleDelete = async (index) => {
     try {
-      setStatus(`Deleting file ${index + 1}...`);
+      const file = files[index];
+      setStatus(`Deleting file ${file.nameField || index}...`);
       await removeEntry(wallet, index);
       setTimeout(() => {
         setFiles(prev => prev.filter((_, i) => i !== index));
