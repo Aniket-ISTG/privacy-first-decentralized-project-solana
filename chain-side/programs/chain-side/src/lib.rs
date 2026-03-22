@@ -66,6 +66,10 @@ pub mod storage_program {
 
         Ok(account.files.clone())
     }
+
+    pub fn close_account(_ctx: Context<CloseAccount>) -> Result<()> {
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -117,6 +121,21 @@ pub struct GetEntries<'info> {
     )]
     pub storage: Account<'info, StorageAccount>,
 
+    pub user: Signer<'info>,
+}
+
+#[derive(Accounts)]
+pub struct CloseAccount<'info> {
+    #[account(
+        mut,
+        close = user,
+        seeds = [b"storage", user.key().as_ref()],
+        bump,
+        constraint = storage.owner == user.key() @ StorageError::Unauthorized
+    )]
+    pub storage: Account<'info, StorageAccount>,
+
+    #[account(mut)]
     pub user: Signer<'info>,
 }
 

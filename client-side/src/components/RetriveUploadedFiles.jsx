@@ -5,6 +5,7 @@ import { getDecryptedUnzippedData } from "../utils/getDecryptedUnzippedData";
 import { downloadFolderAsZip } from "../utils/downloadFolderAsZip";
 import { decryptAESKeyWithSecret } from "../lib/AESKeyDecryption";
 import { removeEntry } from "../solana/removeEntry";
+import { useAccount } from "../context/AccountContext";
 import FileCard from "./FileCard";
 
 export default function RetrieveUploadedFiles({ wallet }) {
@@ -13,6 +14,7 @@ export default function RetrieveUploadedFiles({ wallet }) {
   const [downloading, setDownloading] = useState(null);
   const [status, setStatus] = useState("");
   const [hasInitialized, setHasInitialized] = useState(false);
+  const { setHasAccount } = useAccount();
 
   const handleFetchFromBlockchain = async () => {
     try {
@@ -21,11 +23,13 @@ export default function RetrieveUploadedFiles({ wallet }) {
       const entries = await getEntries(wallet);
       setFiles(entries);
       setHasInitialized(true);
+      setHasAccount(true); // Account exists if we can fetch entries
       setStatus(entries.length > 0 ? "" : "No files uploaded yet");
     } catch (err) {
       console.error(err);
       setStatus("❌ Failed to fetch: " + err.message);
       setHasInitialized(true);
+      setHasAccount(false); // Account doesn't exist if fetch fails
     } finally {
       setLoading(false);
     }
@@ -53,13 +57,10 @@ export default function RetrieveUploadedFiles({ wallet }) {
     try {
       setStatus(`Deleting file ${index + 1}...`);
       await removeEntry(wallet, index);
-
-      // Wait for fade animation then remove from state
       setTimeout(() => {
         setFiles(prev => prev.filter((_, i) => i !== index));
         setStatus("✅ File deleted successfully");
       }, 400);
-
     } catch (err) {
       console.error(err);
       setStatus("❌ Delete failed: " + err.message);
@@ -109,7 +110,7 @@ export default function RetrieveUploadedFiles({ wallet }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {files.map((file, index) => (
               <FileCard
-                key={file.cid}    
+                key={file.cid}
                 index={index}
                 file={file}
                 isDownloading={downloading === index}

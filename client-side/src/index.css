@@ -68,7 +68,7 @@ body {
   font-family: "SF Mono", "Fira Code", "Monaco", monospace;
 }
 
-/* Base Components */
+
 @layer components {
   .btn-primary {
     @apply border border-[#64ffda] text-[#64ffda] bg-transparent px-4 py-2 rounded text-sm font-mono font-medium transition-all duration-300;

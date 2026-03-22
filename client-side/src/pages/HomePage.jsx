@@ -1,33 +1,24 @@
 import { useWallet } from "@solana/wallet-adapter-react";
-import { initializeStorage } from "../solana/initializeStorage";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { useAccount } from "../context/AccountContext";
+import { useAccountInitialization } from "../hooks";
 
+/**
+ * HomePage Component
+ * Landing page that shows storage initialization for new users
+ * Shows Initialize Storage button only when wallet is connected and account not initialized
+ */
 export default function HomePage() {
   const wallet = useWallet();
-  const [isInitializing, setIsInitializing] = useState(false);
+  const { hasAccount, setHasAccount } = useAccount();
+  const { isInitializing, handleInitializeStorage } = useAccountInitialization();
 
-  const handleInitializeStorage = async () => {
-    if (!wallet.connected) {
-      toast.error("Please connect your wallet first");
-      return;
-    }
-
-    setIsInitializing(true);
-    try {
-      await initializeStorage(wallet);
-      toast.success("Storage account initialized successfully!");
-    } catch (error) {
-      console.error("Initialization error:", error);
-      toast.error("Storage already initialized");
-    } finally {
-      setIsInitializing(false);
-    }
+  const handleInitialize = () => {
+    handleInitializeStorage(wallet, setHasAccount);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-20">
-      <div className="text-center max-w-4xl mx-auto px-6">
+    <div className="min-h-screen flex justify-center py-20">
+      <div className="text-center w-full max-w-6xl mx-auto px-6">
         <p className="font-mono text-[var(--accent-primary)] text-lg mb-4 animate-fadeInUp">
           Build encrypted privacy
         </p>
@@ -40,19 +31,27 @@ export default function HomePage() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fadeInUp delay-300">
-          {wallet.connected ? (
-            <>
-              <button
-                onClick={handleInitializeStorage}
-                disabled={isInitializing}
-                className="btn-primary"
-              >
-                {isInitializing ? "⚡ Initializing..." : "⚡ Initialize Storage"}
-              </button>
-            </>
-          ) : (
+          {!wallet.connected ? (
             <p className="text-[var(--accent-secondary)] font-mono">
               Connect wallet to get started →
+            </p>
+          ) : !hasAccount ? (
+            <div>
+               <p className="text-lg text-[var(--accent-secondary)] max-w-lg mx-auto mb-12 animate-fadeInUp delay-200">
+                Click the button below to initialize your encrypted storage account on Solana. This is a one-time setup that creates a secure vault for your files.
+              </p>
+              <button
+              onClick={handleInitialize}
+              disabled={isInitializing}
+              className="btn-primary"
+              >
+              {isInitializing ? "⚡ Initializing..." : "⚡ Initialize Storage"}
+              </button>
+            </div>
+            
+          ) : (
+            <p>
+              Your encrypted storage account is ready! Use the navigation above to upload and manage your files securely.
             </p>
           )}
         </div>

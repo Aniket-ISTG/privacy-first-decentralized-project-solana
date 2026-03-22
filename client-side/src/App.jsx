@@ -1,20 +1,35 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 // Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Pages
 import HomePage from "./pages/HomePage";
 import UploadPage from "./pages/UploadPage";
 import RetrievePage from "./pages/RetrievePage";
+import DeleteAccountPage from "./pages/DeleteAccountPage";
+
+// Context
+import { AccountProvider } from "./context/AccountContext";
+import { useAccount } from "./context/AccountContext";
+
+// Hooks
+import { useAccountCheck } from "./hooks";
 
 // Motion Variants
 import { pageVariants } from "./lib/motionVariants";
 
 function AppContent() {
   const location = useLocation();
+  const wallet = useWallet();
+  const { hasAccount, setHasAccount } = useAccount();
+
+  // Check if PDA exists whenever wallet connects
+  useAccountCheck(setHasAccount);
 
   return (
     <div style={{ backgroundColor: "var(--bg-dark)" }} className="min-h-screen text-[var(--accent-text)]">
@@ -44,18 +59,35 @@ function AppContent() {
             <Route
               path="/upload"
               element={
-                <motion.div
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <UploadPage />
-                </motion.div>
+                <ProtectedRoute hasAccount={hasAccount}>
+                  <motion.div
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <UploadPage />
+                  </motion.div>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/retrieve"
+              element={
+                <ProtectedRoute hasAccount={hasAccount}>
+                  <motion.div
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <RetrievePage />
+                  </motion.div>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/delete-account"
               element={
                 <motion.div
                   variants={pageVariants}
@@ -63,7 +95,7 @@ function AppContent() {
                   animate="animate"
                   exit="exit"
                 >
-                  <RetrievePage />
+                  <DeleteAccountPage />
                 </motion.div>
               }
             />
@@ -80,7 +112,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <AccountProvider>
+        <AppContent />
+      </AccountProvider>
     </Router>
   );
 }
