@@ -28,7 +28,6 @@ export const handleFolderSelect = async (wallet, e, setStatus, setEncryptedBlob,
 
     setStatus("Encrypting ZIP...");
     const aesKey = generateRandomAesKey();
-    console.log("AES key from upload", aesKey);
     const wordArray = convertZipArrayBufferToWordArray(zipArrayBuffer);
     const encryptedDataByAESKey = encryptZipByAesKey(wordArray, aesKey);
     const encryptedZipBlobByAESKey = new Blob([encryptedDataByAESKey], {
@@ -39,14 +38,12 @@ export const handleFolderSelect = async (wallet, e, setStatus, setEncryptedBlob,
 
     setStatus("Uploading to IPFS...");
     const cid = await uploadToIPFS(encryptedZipBlobByAESKey);
-    console.log("CID from upload", cid);
     if (!cid) throw new Error("IPFS upload failed");
 
     onProgress && onProgress(1); // Uploading to IPFS
 
     setStatus("Encrypting AES key...");
     const encryptedAES = await encryptAESKeyWithSecret(wallet, aesKey);
-    console.log("EncryptedAESKey from upload", encryptedAES);
 
     onProgress && onProgress(2); // Encrypting AES key
 

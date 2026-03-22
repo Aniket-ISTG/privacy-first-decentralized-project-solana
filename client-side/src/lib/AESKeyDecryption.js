@@ -6,7 +6,6 @@ import { getSecret } from "./getSecret";
  */
 export async function decryptAESKeyWithSecret(wallet , encryptedAESKey) {
   const secret = await getSecret(wallet);
-  console.log("secret from download", secret);
   const secretString = CryptoJS.enc.Hex.stringify(
     CryptoJS.lib.WordArray.create(secret)
   );

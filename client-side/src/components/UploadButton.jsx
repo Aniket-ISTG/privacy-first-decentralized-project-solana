@@ -9,7 +9,6 @@ export const UploadButton = ({ encryptedBlob }) => {
     setIsLoading(true);
     try {
       const CID = await uploadToIPFS(encryptedBlob);
-      console.log("Uploaded to IPFS with CID:", CID);
       toast.success("File successfully encrypted and uploaded to IPFS! CID saved to blockchain.");
     } catch (err) {
       console.error("Upload failed:", err);

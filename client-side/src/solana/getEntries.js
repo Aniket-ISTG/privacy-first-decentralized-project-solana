@@ -8,7 +8,6 @@ export async function getEntries(wallet) {
 
   const accountInfo = await connection.getAccountInfo(storagePDA);
   if (!accountInfo) {
-    console.log("❌ No account found, initialize first");
     return [];
   }
 
@@ -49,6 +48,5 @@ export async function getEntries(wallet) {
     files.push({ cid, encryptedAesKey, nameField });
   }
 
-  console.log("✅ Retrieved entries:", files);
   return files;
 }

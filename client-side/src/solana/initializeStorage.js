@@ -48,5 +48,4 @@ export async function initializeStorage(wallet) {
 
   const signature = await wallet.sendTransaction(tx, connection);
   await connection.confirmTransaction(signature, "confirmed");
-  console.log("✅ Initialized successfully:", signature);
 }

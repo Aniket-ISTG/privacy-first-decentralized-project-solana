@@ -42,8 +42,6 @@ export async function callInitialize(wallet, s1, s2) {
 
   const signature = await wallet.sendTransaction(tx, connection);
   await connection.confirmTransaction(signature, "confirmed");
-
-  console.log("Tx signature:", signature);
 }
 
 /**

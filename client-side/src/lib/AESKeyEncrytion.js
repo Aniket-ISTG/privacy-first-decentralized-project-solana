@@ -11,15 +11,11 @@ export async function encryptAESKeyWithSecret(wallet, aesKey) {
   const secretString = CryptoJS.enc.Hex.stringify(
       CryptoJS.lib.WordArray.create(secret)
     );
-  console.log("secret from download", secret);
-  console.log("aesKey from download", aesKey);
 
   const encryptedAESKey = CryptoJS.AES.encrypt(
     aesKey,
     secretString
   ).toString();
-
-  console.log("encryptedAESKey from download", encryptedAESKey);
 
   return encryptedAESKey; // string (safe to store)
 }

@@ -44,17 +44,14 @@ export async function addEntry(wallet, cid, encryptedAesKey, nameField) {
 
   // Simulate first
   // const simulation = await connection.simulateTransaction(tx);
-  // console.log("Simulation result:", simulation);
 
   // if (simulation.value.err) {
   //   console.error("❌ Simulation error:", simulation.value.err);
-  //   console.log("🪵 Program logs:", simulation.value.logs);
   //   return;
   // }
 
   const signature = await wallet.sendTransaction(tx, connection);
   await connection.confirmTransaction(signature, "confirmed");
-  console.log("✅ Entry added:", signature);
   return signature;
 }
 

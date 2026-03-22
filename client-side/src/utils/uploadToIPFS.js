@@ -4,8 +4,6 @@ import { getPinataUrl } from "./ipfsServiceURl";
 const PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
 
 export async function uploadToIPFS(encryptedBlob) {
-  //console.log("JWT exists:", !!import.meta.env.VITE_PINATA_JWT);
-
   if (!PINATA_JWT) {
     throw new Error("Pinata JWT not found. Check .env file and restart dev server.");
   }
