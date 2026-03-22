@@ -11,6 +11,12 @@ export const handleFolderSelect = async (wallet, e, setStatus, setEncryptedBlob,
   const files = e.target.files;
   if (!files.length) return;
 
+  const folderName = window.prompt("Please enter a name for this folder:", "My Folder");
+  if (!folderName) {
+    setStatus("Upload cancelled (no name provided)");
+    return;
+  }
+
   try {
     setStatus("Zipping files...");
     const zip = new JSZip();
@@ -45,7 +51,7 @@ export const handleFolderSelect = async (wallet, e, setStatus, setEncryptedBlob,
     onProgress && onProgress(2); // Encrypting AES key
 
     setStatus("Saving to Solana...");
-    await addEntry(wallet, cid, encryptedAES);
+    await addEntry(wallet, cid, encryptedAES, folderName);
 
     onProgress && onProgress(3); // Writing to blockchain
 

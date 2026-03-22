@@ -63,6 +63,10 @@ export type StorageProgram = {
         {
           "name": "encryptedAesKey",
           "type": "string"
+        },
+        {
+          "name": "nameField",
+          "type": "string"
         }
       ]
     },
@@ -304,6 +308,10 @@ export type StorageProgram = {
           },
           {
             "name": "encryptedAesKey",
+            "type": "string"
+          },
+          {
+            "name": "nameField",
             "type": "string"
           }
         ]

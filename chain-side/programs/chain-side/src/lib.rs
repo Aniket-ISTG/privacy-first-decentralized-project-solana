@@ -17,6 +17,7 @@ pub mod storage_program {
         ctx: Context<AddEntry>,
         cid: String,
         encrypted_aes_key: String,
+        name_field: String,
     ) -> Result<()> {
         let account = &mut ctx.accounts.storage;
 
@@ -33,6 +34,7 @@ pub mod storage_program {
         account.files.push(FileEntry {
             cid,
             encrypted_aes_key,
+            name_field,
         });
 
         Ok(())
@@ -149,6 +151,7 @@ pub struct StorageAccount {
 pub struct FileEntry {
     pub cid: String,
     pub encrypted_aes_key: String,
+    pub name_field: String,
 }
 
 #[error_code]
@@ -165,8 +168,13 @@ impl StorageAccount {
     pub const MAX_FILES: usize = 20;
     pub const MAX_CID: usize = 64;
     pub const MAX_AES: usize = 256;
+    pub const MAX_NAME: usize = 64; // Max length for name_field
 
     pub const MAX_SIZE: usize =
-        32 +
-        4 + (Self::MAX_FILES * (4 + Self::MAX_CID + 4 + Self::MAX_AES));
+        32 + // pubkey
+        4 + (Self::MAX_FILES * (
+            (4 + Self::MAX_CID) + 
+            (4 + Self::MAX_AES) + 
+            (4 + Self::MAX_NAME)
+        ));
 }

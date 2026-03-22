@@ -35,8 +35,8 @@ export function FileCard({ index, file, isDownloading, onDownload, onDelete }) {
           <div className="flex items-center gap-3">
             <span className="text-3xl">📁</span>
             <div>
-              <p className="font-mono text-xs text-[var(--accent-primary)]">
-                File #{index + 1}
+              <p className="font-mono text-sm text-[var(--accent-primary)] font-bold">
+                {file.nameField || `Folder #${index + 1}`}
               </p>
               <p className="text-xs text-[var(--accent-secondary)] mt-1">
                 {truncateCID(file.cid)}

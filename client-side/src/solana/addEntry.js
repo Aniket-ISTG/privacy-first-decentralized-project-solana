@@ -6,7 +6,7 @@ import { getDiscriminator } from "../utils/discriminator";
 import { getStoragePDA } from "./pda";
 import { connection, PROGRAM_ID } from "./program";
 
-export async function addEntry(wallet, cid, encryptedAesKey) {
+export async function addEntry(wallet, cid, encryptedAesKey, nameField) {
   if (!wallet.publicKey) throw new Error("Wallet not connected");
 
   const storagePDA = await getStoragePDA(wallet.publicKey, PROGRAM_ID);
@@ -17,6 +17,7 @@ export async function addEntry(wallet, cid, encryptedAesKey) {
     discriminator,
     serializeString(cid),
     serializeString(encryptedAesKey),
+    serializeString(nameField),
   ]);
 
   const instruction = new TransactionInstruction({

@@ -40,7 +40,13 @@ export async function getEntries(wallet) {
     const encryptedAesKey = data.slice(offset, offset + aesLen).toString("utf8");
     offset += aesLen;
 
-    files.push({ cid, encryptedAesKey });
+    // Read name field
+    const nameLen = data.readUInt32LE(offset);
+    offset += 4;
+    const nameField = data.slice(offset, offset + nameLen).toString("utf8");
+    offset += nameLen;
+
+    files.push({ cid, encryptedAesKey, nameField });
   }
 
   console.log("✅ Retrieved entries:", files);
