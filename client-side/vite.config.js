@@ -10,6 +10,8 @@ export default defineConfig({
   resolve: {
     alias: {
       buffer: "buffer",
+      caseSensitive: true,
     },
   },
 });
+

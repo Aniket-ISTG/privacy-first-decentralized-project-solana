@@ -1,4 +1,4 @@
-import { uploadToIPFS } from "../utils/uploadToIpfs";
+import { uploadToIPFS } from "../utils/uploadToIPFS";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
