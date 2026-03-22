@@ -4,7 +4,7 @@ import { encryptZipByAesKey } from "../lib/EncryptZipByAesKey";
 import { convertZipArrayBufferToWordArray } from "../lib/convertZipArrayBufferToWordArray";   
 import { encryptAESKeyWithSecret } from "../lib/AESKeyEncrytion";
 import { addEntry } from "../solana/addEntry";
-import { uploadToIPFS } from "../utils/uploadToIpfs";
+import { uploadToIPFS } from "../utils/uploadToIPFS";
 import { getSecret } from "../lib/getSecret";
 
 export const handleFolderSelect = async (wallet, e, setStatus, setEncryptedBlob, setIsSelected, onProgress) => {
