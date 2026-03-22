@@ -29,8 +29,9 @@ You need Devnet SOL to pay for the tiny transaction fees on the blockchain.
 1. Copy your Solana wallet address from the top of the Phantom extension.
 2. Go to the official Solana Faucet: [https://faucet.solana.com/](https://faucet.solana.com/)
 3. Paste your wallet address.
-4. Select **1 SOL** and click **Devnet**.
-5. *If the official faucet is down, you can also use [QuickNode Faucet](https://faucet.quicknode.com/solana/devnet).*
+4. Connect your github.
+5. Select **1 SOL** and click **Devnet**.
+6. *If the official faucet is down, you can also use [QuickNode Faucet](https://faucet.quicknode.com/solana/devnet).*
 
 Wait a few seconds, and you should see 1 SOL appear in your Phantom wallet!
 
