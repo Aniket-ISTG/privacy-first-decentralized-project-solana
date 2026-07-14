@@ -47,7 +47,7 @@ function Navbar() {
             </svg>
           </div>
           <span className="font-mono text-lg font-bold text-[var(--accent-text)] hidden sm:inline">
-            PrivacyVault
+            Aegis Vault
           </span>
         </Link>
 
