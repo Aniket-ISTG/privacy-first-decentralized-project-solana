@@ -37,6 +37,7 @@ export const handleFolderSelect = async (wallet, e, setStatus, setEncryptedBlob,
     onProgress && onProgress(0); // Encrypting files
 
     setStatus("Uploading to IPFS...");
+    console.log("above Upload to IPFS")
     const cid = await uploadToIPFS(encryptedZipBlobByAESKey);
     if (!cid) throw new Error("IPFS upload failed");
 

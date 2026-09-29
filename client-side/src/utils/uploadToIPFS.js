@@ -2,11 +2,15 @@ import axios from "axios";
 import { getPinataUrl } from "./ipfsServiceURl";
 
 const PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
-
 export async function uploadToIPFS(encryptedBlob) {
   if (!PINATA_JWT) {
     throw new Error("Pinata JWT not found. Check .env file and restart dev server.");
   }
+  console.log("PINATA JWT:", PINATA_JWT);
+  console.log("JWT exists:", !!PINATA_JWT);
+  console.log("JWT length:", PINATA_JWT?.length);
+
+  console.log("Inside Upload to IPFS")
 
   const url = getPinataUrl();
   const formData = new FormData();
@@ -17,6 +21,7 @@ export async function uploadToIPFS(encryptedBlob) {
 
   formData.append("file", file);
 
+  try {
   const response = await axios.post(url, formData, {
     maxBodyLength: Infinity,
     headers: {
@@ -24,7 +29,19 @@ export async function uploadToIPFS(encryptedBlob) {
     },
   });
 
+  console.log("Pinata success:", response.data);
+
   return response.data.IpfsHash;
+} catch (error) {
+  console.error("========== PINATA ERROR ==========");
+
+  console.error("Status:", error.response?.status);
+  console.error("Response:", error.response?.data);
+  console.error("Message:", error.message);
+
+  console.error("==================================");
+
+  throw error;
+}
 }
 
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI0NDA2NGI1Ni1mNmE3LTQ1ZTEtYWRmNy0wNjcyMjY1Njc3OGMiLCJlbWFpbCI6ImFuaWtldHNlbjEzMDEyMDA2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6IkZSQTEifSx7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6Ik5ZQzEifV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJiYTZhOGI0NDRmZGJkYTY1ODgxMCIsInNjb3BlZEtleVNlY3JldCI6IjdiZTg2ODdmMTNlOTBmNTg0N2YyZmJjMjdlYzI4MTNiOTUyYzY3NjYyMmY0MDY3MjY2YWNiYzk2YWQ4YWU1MGQiLCJleHAiOjE4MDI4NDMxOTJ9.jG76iJtzo3J7pyqtC5beTW8uH813-K_xnZoL5A8H8AE
