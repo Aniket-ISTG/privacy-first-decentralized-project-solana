@@ -6,7 +6,7 @@ export async function uploadToIPFS(encryptedBlob) {
   if (!PINATA_JWT) {
     throw new Error("Pinata JWT not found. Check .env file and restart dev server.");
   }
-  console.log("PINATA JWT:", PINATA_JWT);
+  //console.log("PINATA JWT:", PINATA_JWT);
   console.log("JWT exists:", !!PINATA_JWT);
   console.log("JWT length:", PINATA_JWT?.length);
 
